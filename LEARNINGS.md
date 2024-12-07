@@ -42,5 +42,6 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 ## Day 7
 
 - Just how to concatenate numbers leveraging the implicit string conversion of JavaScript (`"" + a + b`)
+- ... and then learned that `a*10**(Math.floor(Math.log10(b))+1)+b` is roughly factor 3 faster
 
 ## more to come...

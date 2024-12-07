@@ -56,17 +56,17 @@ if (tasks.includes(1)) {
     for (const line of lines) {
         let [ target, input ] = line.split(":")
         target = parseInt(target)
-        let vals = input.trim().split(" ").map(Number)
+        const vals = input.trim().split(" ").map(Number)
 
         let last = [vals[0]]
         for (const v of vals.slice(1)) {
             let newlast = []
             for (const l of last) {
-                let m = l * v
+                const m = l * v
                 if (m <= target) {
                     newlast.push(m)
                 } 
-                let a = l + v
+                const a = l + v
                 if (a <= target) {
                     newlast.push(a)
                 }
@@ -83,6 +83,11 @@ if (tasks.includes(1)) {
 
 // Part 2 ist just a copy of part 1 with an additional operator. Everything else is the same
 
+function concat(a, b) {
+    // const ex = Math.floor(Math.log10(b))+1
+    return a * 10 ** (Math.floor(Math.log10(b))+1) + b
+
+}
 if (tasks.includes(2)) {
 
     let totals = 0
@@ -91,21 +96,22 @@ if (tasks.includes(2)) {
     for (const line of lines) {
         let [ target, input ] = line.split(":")
         target = parseInt(target)
-        let vals = input.trim().split(" ").map(Number)
+        const vals = input.trim().split(" ").map(Number)
     
         let last = [vals[0]]
         for (const v of vals.slice(1)) {
             let newlast = []
             for (const l of last) {
-                let m = l * v
+                const m = l * v
                 if (m <= target) {
                     newlast.push(m)
                 } 
-                let a = l + v
+                const a = l + v
                 if (a <= target) {
                     newlast.push(a)
                 }
-                let c = parseInt("" + l + v)
+                // const c = parseInt("" + l + v)    // old and slow
+                const c = l * 10 ** (Math.floor(Math.log10(v))+1) + v
                 if (c <= target) {
                     newlast.push(c)
                 }
