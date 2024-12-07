@@ -19,24 +19,28 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 ## Day 2
 
- - First time I `slice()`d some arrays
- - Iterate over keys of an object / dictionary
- - Return objects from a function
+- First time I `slice()`d some arrays
+- Iterate over keys of an object / dictionary
+- Return objects from a function
 
 ## Day 3
 
- - More advanced regexp with groups
+- More advanced regexp with groups
 
 ## Day 4
 
- - Learned a bit about `push()`ing to an array, and again used regexp. Not much more.
+- Learned a bit about `push()`ing to an array, and again used regexp. Not much more.
 
- ## Day 5
+## Day 5
 
- - Learned about the handy destructuring assignment (`[x, y] = some other list with 2 values`), really useful when parsing input 
+- Learned about the handy destructuring assignment (`[x, y] = some other list with 2 values`), really useful when parsing input 
 
- ## Day 6
+## Day 6
 
- - Learned about dee copying an array of objects (in this case: strings) with `structuredCopy()`
+- Learned about deep copying an array of objects (in this case: strings) with `structuredCopy()`
 
- ## more to come...
+## Day 7
+
+- Just how to concatenate numbers leveraging the implicit string conversion of JavaScript (`"" + a + b`)
+
+## more to come...
