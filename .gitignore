@@ -1,0 +1,26 @@
+# VS Code stuff
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# Python stuff
+__pycache__
+
+# Important stuff
+.env
+
+# Other (temporary) files
+scratch.*
+unused.*
+input*
+output*
+
