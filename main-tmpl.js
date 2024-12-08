@@ -9,10 +9,11 @@ import { readFileSync } from 'node:fs';
 import { exit } from 'node:process';
 
 function load_data(test_only) {
+    const dir = import.meta.dirname
     if (test_only) {
-        return readFileSync('./input_testdata.txt', 'utf8')
+        return readFileSync(dir + '/input_testdata.txt', 'utf8')
     } else {
-        return readFileSync('./input.txt', 'utf8')
+        return readFileSync(dir + '/input.txt', 'utf8')
     }
 }
 
