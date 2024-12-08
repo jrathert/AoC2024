@@ -60,6 +60,6 @@ else:
 
 print(f"Good to go, starting VS Code...")
 
-system(f"code {date}")
+system(f"code . --goto '{date}/main.js:48:1'")
 # system(f"code .")
 
