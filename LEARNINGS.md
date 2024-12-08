@@ -44,4 +44,9 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - Just how to concatenate numbers leveraging the implicit string conversion of JavaScript (`"" + a + b`)
 - ... and then learned that `a*10**(Math.floor(Math.log10(b))+1)+b` is roughly factor 3 faster
 
+## Day 8
+
+- Object equality is an issue in JavaScript, you cannot just throw objects or arrays into a `Set` and then you are done.
+- Function pointers work. ;-)
+
 ## more to come...
