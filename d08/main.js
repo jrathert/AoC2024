@@ -73,7 +73,8 @@ function oob(pos) {
 // for part 1: find max 2 antinodes of 2 positions
 function antinodes(pos1, pos2) {
 
-    // ensure x1 is smaller or equal x2
+    // ensure x1 is smaller or equal x2 - not really necessary the way the
+    // grid is processed later, but to be a bit generic... ;-)
     if (pos1[0] > pos2[0]) {
         [ pos1, pos2 ] = [ pos2, pos1 ]
     }
@@ -93,7 +94,8 @@ function antinodes(pos1, pos2) {
 // for part 2: find all antinodes of 2 positions, incl. the positions themselves
 function antinodes_all(pos1, pos2) {
 
-    // ensure x1 is smaller or equal x2
+    // ensure x1 is smaller or equal x2 - not really necessary the way the
+    // grid is processed later, but to be a bit generic... ;-)
     if (pos1[0] > pos2[0]) {
         [ pos1, pos2 ] = [ pos2, pos1 ]
     }
@@ -121,8 +123,8 @@ function antinodes_all(pos1, pos2) {
     return ret
 }
 
-// return the list of unique values in positions (an array of 2-int arrays)
-function makeUniqe(positions) {
+// return the number of unique values in positions (an array of 2-int arrays)
+function countUnique(positions) {
     // quite a hack to determine unique elements in positions
     // as both, x and y are < 100, we can just calculate 
     // a number and use them in a Set to dertermine unique positions
@@ -130,7 +132,8 @@ function makeUniqe(positions) {
     for (const p of positions) {
         s.add(p[0] * 100 + p[1])
     }
-    return [...s].map(t => [Math.floor(t/100), t%100])
+    // could also recreate the list by: [...s].map(t => [Math.floor(t/100), t%100]) - but we only need the number
+    return s.size
 }
 
 // determine the antinodes, using the provided function
@@ -149,8 +152,7 @@ function determineAntinodes(antinode_func) {
             }
         }
     }
-    let unique = makeUniqe(anodes)
-    return unique.length
+    return countUnique(anodes)
 }
 
 // Part 1: Use the simple version
