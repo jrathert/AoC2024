@@ -49,4 +49,12 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - Object equality is an issue in JavaScript, you cannot just throw objects or arrays into a `Set` and then you are done.
 - Function pointers work. ;-)
 
+## Day 9
+
+- How to implement a doubly-linked list
+
+## Day 10
+
+- Nothing special, just how to work with Sets (i.e.: copy them)
+
 ## more to come...
