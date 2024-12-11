@@ -57,4 +57,10 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 - Nothing special, just how to work with Sets (i.e.: copy them)
 
+## Day 11
+
+- Recursion works, if you implement a cache properly
+- Still need some more time to learn about some basic concepts (like efficient
+  dictionary keys etc. in JavaScrip)
+
 ## more to come...
