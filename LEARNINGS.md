@@ -61,6 +61,10 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 - Recursion works, if you implement a cache properly
 - Still need some more time to learn about some basic concepts (like efficient
-  dictionary keys etc. in JavaScrip)
+  dictionary keys etc. in JavaScript)
+
+## Day 12
+
+- You always need a Counter class...
 
 ## more to come...
