@@ -67,4 +67,9 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 - You always need a Counter class...
 
+## Day 13
+
+- regular experssions will never be my friends at 6am
+- loving maths
+
 ## more to come...
