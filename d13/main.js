@@ -80,7 +80,7 @@ function solve(taskno) {
         let pressesA = (x*b2 - y*a2)/(b2*a1 - a2*b1)
         let pressesB = (x - a1*pressesA)/a2
 
-        // console.log(`Solution = ${mfact},${nfact}`)
+        // console.log(`Solution = ${pressesA},${pressesB}`)
 
         if (Number.isInteger(pressesA) && Number.isInteger(pressesB)) {
             numTokens += pressesA * 3 + pressesB * 1
