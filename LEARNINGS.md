@@ -72,4 +72,9 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - regular experssions will never be my friends at 6am
 - loving maths
 
+## Day 14
+
+- How to spot a christmas tree in a grid
+- How JavaScript deals when using negative numbers with modulo
+
 ## more to come...
