@@ -77,4 +77,10 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - How to spot a christmas tree in a grid
 - How JavaScript deals when using negative numbers with modulo
 
+## Day 15
+
+- Used .forEach() the first time - could have done that earlier
+- Feeling more and more comfortable with grid thinking again. As every year,
+  in the beginning I struggle with x, y being swapped during the iterations...
+
 ## more to come...
