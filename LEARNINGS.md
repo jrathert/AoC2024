@@ -95,7 +95,10 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 ## Day 18
 
-- pending... solution found, but need to clean up code
+- Dijkstra, finally - and bruce force works, then
+- Importing from another file in same directory
+- Start believing I will never get to love JavaScript. Simply miss elegance. I know there is some 
+  "functional programming style" even with JS, but simply do not get into it 
 
 ## Day 19
 
