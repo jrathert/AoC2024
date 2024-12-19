@@ -91,7 +91,8 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 
 ## Day 17
 
-- pending... solution found, but need to clean up code
+- JavaScript has problems with `>>` - better use `>>>` - see [StackOverflow](https://stackoverflow.com/a/56866416/10272577)
+- Things like that can take you hours...
 
 ## Day 18
 
