@@ -83,4 +83,26 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - Feeling more and more comfortable with grid thinking again. As every year,
   in the beginning I struggle with x, y being swapped during the iterations...
 
+## Day 16
+
+- JavaScript / Node is not very helpful if you do weird typos like `path.push[s]` instead of `path.push(s)`...
+- Copying large arrays is time consuming
+- In general not too happy
+
+## Day 17
+
+- pending... solution found, but need to clean up code
+
+## Day 18
+
+- pending... solution found, but need to clean up code
+
+## Day 19
+
+- Caching rules the world!
+- Dynamic typing can be convenient - but also dangerous, especially if you play around "optimizing" 
+  your code. I initialized a to-be-`boolean` value with `'  '`, and it took me quite a lot of 
+  debugging until I found out what was wrong.
+- Depth-first was important in part 1
+
 ## more to come...
