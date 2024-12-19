@@ -12,7 +12,10 @@
                 "<node_internals>/**"
             ],
             // "program": "${workspaceFolder}/d08/main.js"
-            "program": "${file}"
+            "program": "${file}",
+            "args": [
+                 "-s"
+            ],
         }
     ]
 }

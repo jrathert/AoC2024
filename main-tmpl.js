@@ -46,13 +46,15 @@ let load = performance.now()
 // Part 1 ...
 
 if (tasks.includes(1)) {
-    console.log(`Part 1: results`)    
+    let totals = 0
+    console.log(`Part 1 results: ${totals}`)    
 }
 
 // Part 2 ...
 
 if (tasks.includes(2)) {
-    console.log(`Part 2: results`)    
+    let totals = 0
+    console.log(`Part 2 results: ${totals}`)    
 }
 
 let stop = performance.now()
