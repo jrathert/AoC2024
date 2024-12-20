@@ -109,4 +109,13 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
   debugging until I found out what was wrong.
 - Depth-first was important in part 1
 
-## more to come...
+## Day 20
+
+- I slowly start using functional programming style in JS. Then realized I do 
+  not need the code I wrote. ;-)
+- Brute force works.
+
+## Day 21-25
+
+- ... the best is yet to come?
+
