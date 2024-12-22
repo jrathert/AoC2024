@@ -126,7 +126,7 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - `reduce` is not super effective creating sets
 - Still `for x in` might be useful from time to time
 
-## Day 21-25
+## Day 23-25
 
 - ... the best is yet to come?
 
