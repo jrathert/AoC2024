@@ -115,6 +115,17 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
   not need the code I wrote. ;-)
 - Brute force works.
 
+## Day 21
+
+ - `for x in` suck, coming from Python, and usually meaning `for x of`
+ - You can finish a day successfully without having understood and really
+   intellectually solved one of the key questions
+
+## Day 22
+
+- `reduce` is not super effective creating sets
+- Still `for x in` might be useful from time to time
+
 ## Day 21-25
 
 - ... the best is yet to come?
