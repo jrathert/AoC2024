@@ -39,7 +39,7 @@ if path.exists(date):
 
 print(f"Copying source file...")
 mkdir(date)
-copyfile('main-tmpl.py', f'./{date}/main.py')
+# copyfile('main-tmpl.py', f'./{date}/main.py')
 copyfile('main-tmpl.js', f'./{date}/main.js')
 Path(f'./{date}/input_testdata.txt').touch()
 #copyfile('input_testdata.txt', )
