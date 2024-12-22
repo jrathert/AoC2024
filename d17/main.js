@@ -7,7 +7,6 @@
 
 import { readFileSync } from 'node:fs';
 import { exit } from 'node:process';
-import { run } from 'node:test';
 
 function load_data(test_only) {
     const dir = import.meta.dirname
