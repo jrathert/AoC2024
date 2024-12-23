@@ -126,7 +126,14 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
 - `reduce` is not super effective creating sets
 - Still `for x in` might be useful from time to time
 
-## Day 23-25
+## Day 23
 
-- ... the best is yet to come?
+- Learned about `Map` (opposed to just `{}`) and do not get it ;-)
+- Although I _loved_ Grpah theory in University, I did not remember the 
+  [Clique Problem](https://en.wikipedia.org/wiki/Clique_problem) and especially
+  not the [Bron-Kerbosch algorithm](https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm) - nice!
+
+## Day 24-25
+
+- ... 2 more to go!
 
