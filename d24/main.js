@@ -30,12 +30,7 @@ let test_only = process.argv.includes("-s") ? false : true
 
 let start = performance.now()
 
-// As part of my "boilerplate" I read data into an array of lines of strings
-// and keep track of the dimension (m = number of columns, n = number of rows)
-
 let data = load_data(test_only)
-
-let load = performance.now()
 
 const [_reglines, _ruleslines] = data.split('\n\n')
 
@@ -64,6 +59,8 @@ for (const line of _ruleslines.trim().split('\n')) {
 }
 const num_rules = Object.keys(rules).length
 
+let load = performance.now()
+
 // calculate the value of all registers in reg with a prefix 
 function prefixValue(regs, prefix) {
     const vals = Object.keys(regs).filter(r => r[0]==prefix).sort((a, b) => a < b ? -1 : a>b ? 1 : 0)
@@ -76,6 +73,30 @@ function prefixValue(regs, prefix) {
     }
     return ret
 }
+
+function findGate(op1, op, op2, rules_p) {
+    const m = Object.values(rules_p).filter(
+        r => (((r.op1 == op1 && r.op2 == op2) || (r.op1 == op2 && r.op2 == op1)) && r.op == op))
+    if (m.length > 1) {
+        console.log("ERROR - more than one rule? Should not happen.")
+        return null
+    }
+    else if (m.length == 1) {
+        return m[0].target 
+    }
+    else {
+        return null
+    }
+}
+
+function swap(r1, r2, rules) {
+    let tmp = rules[r2]
+    rules[r2] = rules[r1]
+    rules[r2].target = r2
+    rules[r1] = tmp
+    rules[r1].target = r1
+}
+
 
 // return the number of registers in regs with a prefix
 function numBits(regs, prefix) {
@@ -115,6 +136,89 @@ function processRules(regs_p, rules_p) {
     }
     return regs
 }
+
+// This is how to solve the rules/wrong gate solved:
+// 
+// Ideas is then to repeatedly iterate over the bits from 0... maxlen
+// until an error is found - fix it by swapping and restart - until maxlen reached
+//
+// In my input data, it turned out that only the first two types of swaps occured
+// (changing output gates of x_xor_y and x_and_y OR output gates of
+// z_n and the last carry (c_n) XOR'd with x_xor_y)
+//
+function fixRules(rules, bf_len) {
+  
+    let swapped = []
+    let bit = 0
+    let c_n = null     // last carry bit
+  
+    while (true) {
+
+        const x_n = `x${bit<10?"0":""}${bit}`
+        const y_n = `y${bit<10?"0":""}${bit}`
+        const z_n = `z${bit<10?"0":""}${bit}`
+
+        if (bit == 0) {
+            c_n = findGate(x_n, 'AND', y_n, rules)
+        }
+        else {
+            // these alway exist
+            let x_xor_y = findGate(x_n, "XOR", y_n, rules)
+            let x_and_y = findGate(x_n, "AND", y_n, rules)
+
+            // now find the correspoinding z_n
+            let out = findGate(x_xor_y, "XOR", c_n, rules)
+            if (out == null) {
+                // no output gate found - x_xor_y and x_and_y must be swapped
+                swapped.push(...[x_and_y, x_xor_y])
+                swap(x_and_y, x_xor_y, rules)
+                
+                // re-start from beginning
+                bit = 0
+                continue
+            }
+
+            if (out != z_n) {
+                // wrong output gate found - out and z_n must be swapped
+                swapped.push(...[out, z_n])
+                swap(out, z_n, rules)
+                
+                // re-start from beginning
+                bit = 0
+                continue
+            }
+            // the next two are assumed to never be swapped, as
+            // these are not direct outputs
+            out = findGate(c_n, 'AND', x_xor_y, rules)
+            if (out == null) {
+                // no output gate found - c_n an x_xor_y must be swapped
+                // Did not happen with my data
+                swapped.push(...[c_n, x_xor_y])
+                swap(c_n, x_xor_y, rules)
+                
+                // re-start from beginning
+                bit = 0
+                continue
+            }
+            c_n = findGate(out, 'OR', x_and_y, rules)
+            if (c_n == null) {
+                // no output gate found - out an x_and_y must be swapped
+                // Did not happen with my data
+                swapped.push(...[out, x_and_y])
+                swap(out, x_and_y, rules)
+                
+                // re-start from beginning
+                bit = 0
+                continue
+            }
+        }
+        bit += 1
+        if (bit >= bf_len-1) 
+            break
+    }
+    return swapped
+}
+
 // Actual problem solving starts here ===========================================================================
 
 // Part 1 is easy - just do the calculation accoring to the gates
@@ -131,12 +235,13 @@ if (tasks.includes(1)) {
     console.log(`Part 1 results: ${totals}`)    
 }
 
-// Part 2 ...
-
+// Part 2 was a bit tricky - I first was able to solve it manually, but only later found
+// an computational approach. Solution prints a lot of info I used for manual
+// colving
 
 if (tasks.includes(2)) {
-    let totals = 0
 
+    // Describe the problem first - this was actually used to solve it manually
     const regs = processRules(registers, rules)
 
     const x = prefixValue(regs, 'x')
@@ -144,25 +249,21 @@ if (tasks.includes(2)) {
     const r = x+y
     const z = prefixValue(regs, 'z')
 
-    const xl = numBits(regs, 'x')
-    const yl = numBits(regs, 'y')
-    const zl = numBits(regs, 'z')
-    const ml = Math.max(xl, yl, zl)
+    const bf_len = numBits(regs, 'z')
 
-    console.log(`x: ${x} & y: ${y} = ${x+y} vs. z: ${z} ???`)
+    console.log(`x: ${x} & y: ${y} = ${r} vs. z: ${z}`)
 
-    console.log("x: " + num2String(x, ml))
-    console.log("y: " + num2String(y, ml))
+    let r_s = num2String(r, bf_len)
+    let z_s = num2String(z, bf_len)
 
-    let r_s = num2String(r, ml)
+    console.log("x: " + num2String(x, bf_len))
+    console.log("y: " + num2String(y, bf_len))
     console.log("r: " + r_s)
-
-    let z_s = num2String(z, ml)
     console.log("z: " + z_s)
 
     let buf = ["   "]
     let diffIndices = []
-    for (let i = 0; i <= ml; i++) {
+    for (let i = 0; i <= bf_len; i++) {
         if (z_s[i] != r_s[i]) {
             buf.push("^")
             diffIndices.push(45-i)
@@ -172,12 +273,12 @@ if (tasks.includes(2)) {
         }
     }
     console.log(buf.join(''))
-
     console.log(`Differs at positions [${diffIndices.sort((a,b) => a-b)}]`)
 
-    console.log("With that information, solved it manually")
-
-    console.log(`Part 2 results: ${totals}`)    
+    // Solution starts here
+    let swapped = fixRules(rules, bf_len)
+    console.log(`Swappes as they appeared:     [${swapped}]`)    
+    console.log(`Swappes sorted (pt 2 result): [${swapped.sort((a,b) => a < b ? -1 : a > b ? 1 :0)}]`)
 }
 
 let stop = performance.now()
