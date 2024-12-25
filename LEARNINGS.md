@@ -133,7 +133,24 @@ I document some of the relevant learnings during my AoC 2024 journey. Please not
   [Clique Problem](https://en.wikipedia.org/wiki/Clique_problem) and especially
   not the [Bron-Kerbosch algorithm](https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm) - nice!
 
-## Day 24-25
+## Day 24
 
-- ... 2 more to go!
+- A LOT on binary adding: 
+  - https://en.wikipedia.org/wiki/Adder_(electronics)
+  - https://www.electronics-tutorials.ws/combination/comb_7.html
+- Transfering numbers to their binary representation (just a string!)
+
+## Day 25
+
+- I got a star as present ;-) 
+
+
+# Summary
+
+Overall, JavaScript does not impress me too much. While I like Python (untyped language, allows for kind of functional programming), I still do not feel to comfortabel with JavaScript, although you could do yuite similar things.
+
+I liked the easy processing of regular experessions, and from time to time the dynamic typing. I did not like about all the implicit things that happen, e.g., creating or ignoring function parameters, or similar. I hate `for of`, but that's probably  because of my Python experience.
+
+Still a way to go. Shall I try TypeScript next time?
+
 
