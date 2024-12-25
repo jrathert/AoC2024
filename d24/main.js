@@ -34,10 +34,6 @@ let start = performance.now()
 // and keep track of the dimension (m = number of columns, n = number of rows)
 
 let data = load_data(test_only)
-let lines = data.trim().split('\n')
-let n = lines.length
-let m = lines[0].length
-console.log(`Size: ${n}x${m}`)
 
 let load = performance.now()
 
@@ -50,10 +46,10 @@ for (const line of _reglines.trim().split('\n')) {
     val = parseInt(val.trim())
     registers[reg] = val
 }
+const num_registers = Object.keys(registers).length
 
 // a list of all rules, plus a map of targets and their rules
-const allRules = []
-const ruleMap = {}
+const rules = {}
 for (const line of _ruleslines.trim().split('\n')) {
     let [first, op, sec, to, target] = line.split(' ')
     // console.log(line)
@@ -64,9 +60,9 @@ for (const line of _ruleslines.trim().split('\n')) {
         target: target.trim(),
         working: false
     }
-    allRules.push(r)
-    ruleMap[target] = r
+    rules[target] = r
 }
+const num_rules = Object.keys(rules).length
 
 // calculate the value of all registers in reg with a prefix 
 function prefixValue(regs, prefix) {
@@ -93,30 +89,31 @@ function num2String(num, deflen=-1) {
     return indent+s
 }
 
-// process the rules with the provided registers by follwing the rules until all
+// process the rules with the provided registers by following the rules until all
 // rules are processed
 // returns the final registers
-function processRules(regs, rules) {
-    let remains = structuredClone(rules)
-    let cregs = structuredClone(regs)
+function processRules(regs_p, rules_p) {
+    // make a list from all the rules, as this will be 
+    let remains = structuredClone(Object.values(rules_p))
+    let regs = structuredClone(regs_p)
     while (remains.length != 0) {
-        for (let rule of remains) {
-            if (rule.op1 in cregs && rule.op2 in cregs) {
+        for (const rule of remains) {
+            if (rule.op1 in regs && rule.op2 in regs) {
                 if (rule.op == 'AND') {
-                    cregs[rule.target] = cregs[rule.op1] & cregs[rule.op2]
+                    regs[rule.target] = regs[rule.op1] & regs[rule.op2]
                 }
                 else if (rule.op == 'OR') {
-                    cregs[rule.target] = cregs[rule.op1] | cregs[rule.op2]
+                    regs[rule.target] = regs[rule.op1] | regs[rule.op2]
                 }
                 else if (rule.op == 'XOR') {
-                    cregs[rule.target] = cregs[rule.op1] ^ cregs[rule.op2]
+                    regs[rule.target] = regs[rule.op1] ^ regs[rule.op2]
                 }
                 rule.working = true
             }
         }
         remains = remains.filter(r => r.working == false)
     }
-    return cregs
+    return regs
 }
 // Actual problem solving starts here ===========================================================================
 
@@ -125,9 +122,9 @@ function processRules(regs, rules) {
 if (tasks.includes(1)) {
     let totals = 0
 
-    console.log(`Number of input values: ${Object.keys(registers).length}`)
-    console.log(`Number of rules: ${allRules.length}`)
-    const regs = processRules(registers, allRules)
+    console.log(`Number of input registers: ${num_registers}`)
+    console.log(`Number of input rules: ${num_rules}`)
+    const regs = processRules(registers, rules)
     console.log(`Total number registers: ${Object.keys(regs).length}`)
     totals = prefixValue(regs, 'z')
 
@@ -140,15 +137,15 @@ if (tasks.includes(1)) {
 if (tasks.includes(2)) {
     let totals = 0
 
-    const regs = processRules(registers, allRules)
+    const regs = processRules(registers, rules)
 
-    const x = prefixValue(registers, 'x')
-    const y = prefixValue(registers, 'y')
+    const x = prefixValue(regs, 'x')
+    const y = prefixValue(regs, 'y')
     const r = x+y
     const z = prefixValue(regs, 'z')
 
-    const xl = numBits(registers, 'x')
-    const yl = numBits(registers, 'y')
+    const xl = numBits(regs, 'x')
+    const yl = numBits(regs, 'y')
     const zl = numBits(regs, 'z')
     const ml = Math.max(xl, yl, zl)
 
