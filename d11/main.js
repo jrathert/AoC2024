@@ -57,10 +57,10 @@ class Node {
     }
     process() {
         let num_digits = Math.floor(Math.log10(this.val))+1
-        if (this.val == 0) {
+        if (this.val === 0) {
             this.val = 1
         } 
-        else if (num_digits % 2  == 0) {  
+        else if (num_digits % 2  === 0) {  
             let e = 10**(num_digits/2)
             let right = this.val % e
             let left = (this.val - right)/e
@@ -82,7 +82,7 @@ class Node {
 function printFromNode(n) {
     let vals = []
     let curr = n
-    while (curr != null) {
+    while (curr !== null) {
         vals.push(curr.val)
         curr = curr.next
     }
@@ -97,7 +97,7 @@ if (tasks.includes(1)) {
 
     function blinkFrom(n) {
         let curr = n
-        while (curr != null) {
+        while (curr !== null) {
             let next = curr.next
             curr.process()
             curr = next
@@ -160,20 +160,20 @@ class BlinkCache {
 let cache = new BlinkCache()
 
 function blink(val, currdepth, maxdepth) {
-    if (currdepth == maxdepth) {
+    if (currdepth === maxdepth) {
         return 1
     }
     let exist = cache.val(val, currdepth)
-    if (exist != null) {
+    if (exist !== null) {
         return exist
     }
 
     let num_digits = Math.floor(Math.log10(val))+1
     let ret = 0
-    if (val == 0) {
+    if (val === 0) {
         ret = blink(1, currdepth+1, maxdepth)
     } 
-    else if (num_digits % 2  == 0) {  // even number of digits
+    else if (num_digits % 2  === 0) {  // even number of digits
         let e = 10**(num_digits/2)
         let right = val % e
         let left = (val - right)/e

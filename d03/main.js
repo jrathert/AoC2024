@@ -66,10 +66,10 @@ if (tasks.includes(2)) {
     let totals = 0
     let do_mul = true
     for (const m of matches) {
-        if (m[0] == "don't()") {
+        if (m[0] === "don't()") {
             do_mul = false
         }
-        else if (m[0] == "do()") {
+        else if (m[0] === "do()") {
             do_mul = true
         }
         else if (do_mul) {

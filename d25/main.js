@@ -43,7 +43,7 @@ let fullLine
 
 for (let idx = 0; idx < _items.length; idx++) {
     const lines = _items[idx].trim().split('\n')
-    if (idx == 0) {
+    if (idx === 0) {
         width = lines[0].length
         height = lines.length
         console.log(`width: ${width}, height: ${height}`)
@@ -53,12 +53,12 @@ for (let idx = 0; idx < _items.length; idx++) {
     let item = Array(width).fill(0)
     for (let i = 1; i < height; i++) {
         for (let j = 0; j < width; j++) {
-            if (lines[i][j] != lines[i-1][j]) {
+            if (lines[i][j] !== lines[i-1][j]) {
                 item[j] = i-1
             }
         }
     }
-    if (lines[0] == fullLine) {
+    if (lines[0] === fullLine) {
         locks.push(item)
     } else {
         for (let j = 0; j < width; j++) {

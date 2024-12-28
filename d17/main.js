@@ -82,32 +82,32 @@ function run_program(regs = registers, prog = program) {
         no_debug || printOctal(regs)
         let opcode = prog[i]
         let operand = prog[i+1]
-        if (opcode == 0) {
+        if (opcode === 0) {
             let [reg, op] = getCombo(operand, regs)
             no_debug || console.log(`  [${opcode}:${operand}]: A <- A >> ${op} (${reg})`)
             regs['A'] = regs['A'] >>> op
-        } else if (opcode == 1) {
+        } else if (opcode === 1) {
             no_debug || console.log(`  [${opcode}:${operand}]: B <- B (${oct(regs['B'])}) xor ${oct(operand)} = ${oct(regs['B'] ^ operand)}`)
             regs['B'] = regs['B'] ^ operand
-        } else if (opcode == 2) {
+        } else if (opcode === 2) {
             let [reg, op] = getCombo(operand, regs)
             no_debug || console.log(`  [${opcode}:${operand}]: B <- last digit of ${oct(op)} (${reg}) = ${oct(op % 8)}`)
             regs['B'] = op % 8
-        } else if (opcode == 3) {
-            no_debug || console.log(`  [${opcode}:${operand}]: jmp ${(regs['A'] != 0) ? operand : "ignore"}`)
-            i = (regs['A'] != 0) ? operand-2 : i
-        } else if (opcode == 4) {
+        } else if (opcode === 3) {
+            no_debug || console.log(`  [${opcode}:${operand}]: jmp ${(regs['A'] !== 0) ? operand : "ignore"}`)
+            i = (regs['A'] !== 0) ? operand-2 : i
+        } else if (opcode === 4) {
             no_debug || console.log(`  [${opcode}:${operand}]: B <- B (${oct(regs['B'])}) xor C (${oct(regs['C'])}) = ${oct(regs['B'] ^ regs['C'])}`)
             regs['B'] = regs['B'] ^ regs['C']
-        } else if (opcode == 5) {
+        } else if (opcode === 5) {
             let [reg, op] = getCombo(operand, regs)
             no_debug || console.log(`  [${opcode}:${operand}]: OUTPUT last digit of ${oct(op)} (${reg}) = ${oct(op%8)}`)
             output.push(op % 8)
-        } else if (opcode == 6) {
+        } else if (opcode === 6) {
             let [reg, op] = getCombo(operand, regs)
             no_debug || console.log(`  [${opcode}:${operand}]: B <- A >> ${op} (${reg})`)
             regs['B'] = regs['A'] >>> op
-        } else if (opcode == 7) {
+        } else if (opcode === 7) {
             let [reg, op] = getCombo(operand, regs)
             no_debug || console.log(`  [${opcode}:${operand}]: C <- A >> ${op} (${reg})`)
             regs['C'] = regs['A'] >>> op
@@ -125,7 +125,7 @@ function test1() {
     let prog = [2, 6]
     let output = run_program(regs, prog)
     console.log("[" + output.join(',') + "]")
-    console.log(regs['B']) // B == 1
+    console.log(regs['B']) // B === 1
 }
 function test2() {
     console.log("Test 2:")
@@ -142,7 +142,7 @@ function test3() {
     let output = run_program(regs, prog)
     console.log("[" + output.join(',') + "]")
     // output 4,2,5,6,7,7,7,7,3,1,0
-    console.log(regs['A']) // A == 0
+    console.log(regs['A']) // A === 0
 }
 function test4() {
     console.log("Test 4:")
@@ -150,7 +150,7 @@ function test4() {
     let prog = [1,7]
     let output = run_program(regs, prog)
     console.log("[" + output.join(',') + "]")
-    console.log(regs['B']) // B == 26
+    console.log(regs['B']) // B === 26
 }
 function test5() {
     console.log("Test 5:")
@@ -158,7 +158,7 @@ function test5() {
     let prog = [4,0]
     let output = run_program(regs, prog)
     console.log("[" + output.join(',') + "]")
-    console.log(regs['B']) // B == 44354
+    console.log(regs['B']) // B === 44354
 }
 
 // Part 1: Just execute the program. No big deal after a lot of tweking
@@ -194,9 +194,9 @@ function find_a(program, a, b, c, idx) {
     for (let i = 0; i < 8; i++) {
         // console.log(`${idx} - a: ${a} - i: ${i}`)
         let first = run_program({'A': a*8+i, 'B': b, 'C': c}, program)[0]
-        if (first == program[idx]) {
+        if (first === program[idx]) {
             let next = find_a(program, a*8+i, 0, 0, idx-1)
-            if (next != null) {
+            if (next !== null) {
                 return next
             }
         }
@@ -257,8 +257,8 @@ WHAT TO PRINT (B):
 - print B
 
 in order for B to be 0 (last printout), 
- B XOR 6 == 0 -> B = 6 (110) before
- B XOR C == 6 -> as B is in [0-7] before, C needs to be in [0-7 as well] 
+ B XOR 6 === 0 -> B = 6 (110) before
+ B XOR C === 6 -> as B is in [0-7] before, C needs to be in [0-7 as well] 
    C was created by A / 2^B - but a A is in [0-7] in this last step, so is C
 
 */

@@ -110,8 +110,8 @@ if (tasks.includes(1)) {
     for (const line of all_lines) {
         let xmas = line.match(/XMAS/g)
         let samx = line.match(/SAMX/g)  
-        cnt += (xmas == null ? 0 : xmas.length)
-        cnt += (samx == null ? 0 : samx.length)
+        cnt += (xmas === null ? 0 : xmas.length)
+        cnt += (samx === null ? 0 : samx.length)
     }
     console.log(`Part 1: ${cnt} occurences`)    
 }
@@ -123,13 +123,13 @@ if (tasks.includes(2)) {
     let indices = []
     for (let i = 1; i < n-1; i++) {
         for (let j = 1; j < m; j++) {
-            if (lines[i][j] == 'A') {
+            if (lines[i][j] === 'A') {
                 let tl = lines[i-1][j-1]   // top-left
                 let tr = lines[i-1][j+1]   // top-right
                 let bl = lines[i+1][j-1]   // bottom-left
                 let br = lines[i+1][j+1]   // bottom-right
-                if ( (tl == 'M' && br == 'S' || tl == 'S' && br == 'M') &&
-                     (bl == 'M' && tr == 'S' || bl == 'S' && tr == 'M')) {
+                if ( (tl === 'M' && br === 'S' || tl === 'S' && br === 'M') &&
+                     (bl === 'M' && tr === 'S' || bl === 'S' && tr === 'M')) {
                     indices.push([i, j])
                 }
     

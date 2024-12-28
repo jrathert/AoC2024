@@ -53,19 +53,19 @@ const WEST = 8
 
 // give the next position in the given direction
 function doStep(pos, dir) { 
-    if (dir == NORTH) return [ pos[0]-1, pos[1] ]
-    else if (dir == EAST) return [ pos[0], pos[1]+1 ]
-    else if (dir == SOUTH) return [ pos[0]+1, pos[1] ]
-    else if (dir == WEST) return [ pos[0], pos[1]-1 ]
+    if (dir === NORTH) return [ pos[0]-1, pos[1] ]
+    else if (dir === EAST) return [ pos[0], pos[1]+1 ]
+    else if (dir === SOUTH) return [ pos[0]+1, pos[1] ]
+    else if (dir === WEST) return [ pos[0], pos[1]-1 ]
     else return pos
 }
 
 // change the direction by turning right
 function turnRight(dir) {
-    if (dir == NORTH) return EAST
-    else if (dir == EAST) return SOUTH
-    else if (dir == SOUTH) return WEST
-    else if (dir == WEST) return NORTH
+    if (dir === NORTH) return EAST
+    else if (dir === EAST) return SOUTH
+    else if (dir === SOUTH) return WEST
+    else if (dir === WEST) return NORTH
 }
 
 // provide the grid-item at a postion
@@ -129,12 +129,12 @@ if (tasks.includes(1)) {
         // else check the value of the new position and either take a step or
         // turn right
         let c = at(newPos) 
-        if (c == '.' || c == '^' || c == 'X') {
+        if (c === '.' || c === '^' || c === 'X') {
             steps += 1
             pos = newPos
-            if (c != 'X') distinct += 1
+            if (c !== 'X') distinct += 1
         } 
-        else if (c == '#') {
+        else if (c === '#') {
             dir = turnRight(dir)
             turns += 1
         }
@@ -166,7 +166,7 @@ if (tasks.includes(2)) {
             lines = structuredClone(orglines)
             let chkPos = [i, j]
             let cc = at(chkPos)
-            if (cc == '#' || cc == '^' || cc == '.')
+            if (cc === '#' || cc === '^' || cc === '.')
                 continue  // has not been visited, ignore
 
             replaceAt(chkPos, '#')
@@ -186,7 +186,7 @@ if (tasks.includes(2)) {
                     break
                 }
                 let c = at(newPos) 
-                if (c == '.' || c == '^' || c == 'X') {
+                if (c === '.' || c === '^' || c === 'X') {
                     steps += 1
                     pos = newPos
                     if (steps > m * n) {  // must be in loop - TODO: IMPROVE LOOP CHECK!
@@ -194,7 +194,7 @@ if (tasks.includes(2)) {
                         break    
                     }
                 } 
-                else if (c == '#') {
+                else if (c === '#') {
                     dir = turnRight(dir)
                 }
             }                    

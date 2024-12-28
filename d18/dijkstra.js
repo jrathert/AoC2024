@@ -21,10 +21,10 @@ export class WeightedGraph {
         if (this.nodes[v1] && this.nodes[v2]) {
             // they are bith there, now remove all edges between them
             // not super efficient, but works          
-            let i1 = this.nodes[v1].findIndex(function (e) { return e.node == v2 })
-            if (i1 != -1) this.nodes[v1].splice(i1, 1)
-            let i2 = this.nodes[v2].findIndex(function (e) { return e.node == v1 })
-            if (i2 != -1) this.nodes[v2].splice(i2, 1)
+            let i1 = this.nodes[v1].findIndex(function (e) { return e.node === v2 })
+            if (i1 !== -1) this.nodes[v1].splice(i1, 1)
+            let i2 = this.nodes[v2].findIndex(function (e) { return e.node === v1 })
+            if (i2 !== -1) this.nodes[v2].splice(i2, 1)
         }
     }
 
@@ -105,7 +105,7 @@ class PriorityQueue {
     }
 
     isEmpty() {
-        return this.values.length == 0
+        return this.values.length === 0
     }
     
     enqueue(val, priority) {

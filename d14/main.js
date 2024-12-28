@@ -185,7 +185,7 @@ function variant01() {
             const k = `${r.pos.x},${r.pos.y}` 
             grid[k] = grid[k] + 1 || 1
         }
-        if (Object.keys(grid).length == robots.length) {
+        if (Object.keys(grid).length === robots.length) {
             found = true
             break
         }
@@ -256,7 +256,7 @@ function variant02b() {
             for (let i = 0; i < gridX; i++) {
                 let k = `${i},${j}`
                 if (k in grid) {
-                    if (last == i-1) {
+                    if (last === i-1) {
                         subsequent++
                         if (subsequent > maxSubsequent) maxSubsequent = subsequent
                     } else {

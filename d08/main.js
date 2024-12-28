@@ -50,7 +50,7 @@ function findAntennas() {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
             const c = lines[i][j]
-            if (c != '.' && c != '#') {
+            if (c !== '.' && c !== '#') {
                 antenna_cnt +=1
                 if (c in antennas) {
                     antennas[c].push([i, j])

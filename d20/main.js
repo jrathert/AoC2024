@@ -51,7 +51,7 @@ for (const l of lines) {
 function findPos(c= 'S') {
     for (let y = 1; y < n-1; y++) {
         for (let x = 1; x < m-1; x++) {
-            if (grid[y][x] == c)
+            if (grid[y][x] === c)
                 return [x, y] 
         }
     }
@@ -67,10 +67,10 @@ function printGrid(g) {
 
 // assumption: there is exacly one field next on the path, find it
 function step(x, y) {
-    if (x > 1   && grid[y][x-1] != '#') return [x-1, y]
-    if (x < m-1 && grid[y][x+1] != '#') return [x+1, y]
-    if (y > 1   && grid[y-1][x] != '#') return [x, y-1]
-    if (y < n-1 && grid[y+1][x] != '#') return [x, y+1]
+    if (x > 1   && grid[y][x-1] !== '#') return [x-1, y]
+    if (x < m-1 && grid[y][x+1] !== '#') return [x+1, y]
+    if (y > 1   && grid[y-1][x] !== '#') return [x, y-1]
+    if (y < n-1 && grid[y+1][x] !== '#') return [x, y+1]
     return null // should not happen
 }
 
@@ -88,7 +88,7 @@ function buildPath() {
         grid[y][x] = '#'  // avoid coming here again
         let [nx, ny] = step(x, y)
         path.push([nx, ny])
-        if (nx == ex && ny == ey)
+        if (nx === ex && ny === ey)
             break
         x = nx
         y = ny
@@ -137,8 +137,8 @@ if (tasks.includes(1)) {
     let totals = 0
     for (let k of Object.keys(allSavings).filter(a => a >= (test_only ? 0 : 100))) {
         let c = allSavings[k]
-        if (test_only == true) {
-            console.log(`There ${c == 1 ? "is" : "are"} ${c==1?"one":c} cheat${c==1?"":"s"} that save${c==1?"s":""} ${k} picoseconds.`)
+        if (test_only === true) {
+            console.log(`There ${c === 1 ? "is" : "are"} ${c==1?"one":c} cheat${c==1?"":"s"} that save${c==1?"s":""} ${k} picoseconds.`)
         }
         totals += c
     }
@@ -153,8 +153,8 @@ if (tasks.includes(2)) {
     let totals = 0
     for (let k of Object.keys(allSavings).filter(a => a >= (test_only ? 0 : 100))) {
         let c = allSavings[k]
-        if (test_only == true) {
-            console.log(`There ${c == 1 ? "is" : "are"} ${c==1?"one":c} cheat${c==1?"":"s"} that save${c==1?"s":""} ${k} picoseconds.`)
+        if (test_only === true) {
+            console.log(`There ${c === 1 ? "is" : "are"} ${c==1?"one":c} cheat${c==1?"":"s"} that save${c==1?"s":""} ${k} picoseconds.`)
         }
         totals += c
     }

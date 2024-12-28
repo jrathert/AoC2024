@@ -75,15 +75,15 @@ function layout(design, stop_at_first) {
     for (let i = 0; i < maxTowelLen && i < design.length; i++) {
         const d = design.slice(0,i+1)
         if (d in towels) {
-            if (d == design) {
+            if (d === design) {
                 count += 1
-                if (stop_at_first == true) {
+                if (stop_at_first === true) {
                     cache[design] = 1
                     return 1
                 }
             } else {
                 // for performance reasons, we do not immediately consider subtress (="subdesigns"), but collect 
-                // them first (as for stop_at_first == true we only need to dive deeper if we do not
+                // them first (as for stop_at_first === true we only need to dive deeper if we do not
                 // find a solution on this level)
                 subdesigns.push(design.slice(d.length))
             }
@@ -92,7 +92,7 @@ function layout(design, stop_at_first) {
     // now process all subdesigns
     for (let s of subdesigns) {
         count += layout(s, stop_at_first)
-        if (stop_at_first == true && count > 0) {
+        if (stop_at_first === true && count > 0) {
             cache[design] = 1
             return 1
         }
@@ -103,7 +103,7 @@ function layout(design, stop_at_first) {
 
 
 // Part 1: starting with the full design, try to build it from the 
-// towels until a solution is found (stop_at_first == true)
+// towels until a solution is found (stop_at_first === true)
 if (tasks.includes(1)) {
     let totals = 0
     let stop_at_first = true
@@ -117,7 +117,7 @@ if (tasks.includes(1)) {
 }
 
 // Part 2: starting with the full design, try to build all solution from the 
-// towels (stop_at_first == true)
+// towels (stop_at_first === true)
 if (tasks.includes(1)) {
 
     let totals = 0

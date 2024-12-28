@@ -95,7 +95,7 @@ function to_number(code) {
 // Returnes the necessary movements on pad to get from from to to, including
 // the necessary "A" to make things happen, as string
 function moveOnPad(from, to, pad) {
-    if (from == to) return 'A'
+    if (from === to) return 'A'
     let key = `${from}-${to}`
     let movements = pad[key][0]
     return movements+'A'

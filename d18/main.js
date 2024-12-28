@@ -98,12 +98,12 @@ let graph = new WeightedGraph()
 
 for (let y = 0; y < gridY; y++) {
     for (let x = 0; x < gridY; x++) {
-        if (grid[y][x] != '#') {
+        if (grid[y][x] !== '#') {
             let neighs = neigh(x, y)
             let p1 = `${x},${y}`
             for (let n of neighs) {
                 let [x1, y1] = n
-                if (grid[y1][x1] != '#') {
+                if (grid[y1][x1] !== '#') {
                     let p2 = `${x1},${y1}`
                     graph.addEdge(p1, p2)
                 }
@@ -139,7 +139,7 @@ if (tasks.includes(2)) {
         let neighs = allNeighs(x, y)
         for (let n of neighs) {
             let [x1, y1] = n
-            if (grid[y1][x1] != '#') {
+            if (grid[y1][x1] !== '#') {
                 let p2 = `${x1},${y1}`
                 graph.removeEdge(p1, p2)
             }
@@ -148,7 +148,7 @@ if (tasks.includes(2)) {
         let start = `${0},${0}`
         let end = `${gridX-1},${gridY-1}`
         let path = graph.dijkstra(start, end)
-        if (path.length-1 == 0) {
+        if (path.length-1 === 0) {
             console.log(`Part 2 result = ${x},${y}`)
             break
         }

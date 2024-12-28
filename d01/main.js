@@ -46,8 +46,8 @@ let load = performance.now()
 // This day, I do not need the lines, but can read the numbers of the two columns directly from the data,
 // and then sorting by their values - learning about JavaScript regex as well as map() on day 1 - yeah!
 let all_numbers = data.trim().split(/ +|\n/).map(Number)
-let a = all_numbers.filter((_elem, idx) => { return idx%2 == 0 }).sort()
-let b = all_numbers.filter((_elem, idx) => { return idx%2 == 1 }).sort()
+let a = all_numbers.filter((_elem, idx) => { return idx%2 === 0 }).sort()
+let b = all_numbers.filter((_elem, idx) => { return idx%2 === 1 }).sort()
 
 // a helper class I used in part 2 - inspired by Pythons Counter class
 class Counter {

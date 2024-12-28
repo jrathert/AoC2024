@@ -76,12 +76,12 @@ function prefixValue(regs, prefix) {
 
 function findGate(op1, op, op2, rules_p) {
     const m = Object.values(rules_p).filter(
-        r => (((r.op1 == op1 && r.op2 == op2) || (r.op1 == op2 && r.op2 == op1)) && r.op == op))
+        r => (((r.op1 === op1 && r.op2 === op2) || (r.op1 === op2 && r.op2 === op1)) && r.op === op))
     if (m.length > 1) {
         console.log("ERROR - more than one rule? Should not happen.")
         return null
     }
-    else if (m.length == 1) {
+    else if (m.length === 1) {
         return m[0].target 
     }
     else {
@@ -117,22 +117,22 @@ function processRules(regs_p, rules_p) {
     // make a list from all the rules, as this will be 
     let remains = structuredClone(Object.values(rules_p))
     let regs = structuredClone(regs_p)
-    while (remains.length != 0) {
+    while (remains.length !== 0) {
         for (const rule of remains) {
             if (rule.op1 in regs && rule.op2 in regs) {
-                if (rule.op == 'AND') {
+                if (rule.op === 'AND') {
                     regs[rule.target] = regs[rule.op1] & regs[rule.op2]
                 }
-                else if (rule.op == 'OR') {
+                else if (rule.op === 'OR') {
                     regs[rule.target] = regs[rule.op1] | regs[rule.op2]
                 }
-                else if (rule.op == 'XOR') {
+                else if (rule.op === 'XOR') {
                     regs[rule.target] = regs[rule.op1] ^ regs[rule.op2]
                 }
                 rule.working = true
             }
         }
-        remains = remains.filter(r => r.working == false)
+        remains = remains.filter(r => r.working === false)
     }
     return regs
 }
@@ -158,7 +158,7 @@ function fixRules(rules, bf_len) {
         const y_n = `y${bit<10?"0":""}${bit}`
         const z_n = `z${bit<10?"0":""}${bit}`
 
-        if (bit == 0) {
+        if (bit === 0) {
             c_n = findGate(x_n, 'AND', y_n, rules)
         }
         else {
@@ -168,7 +168,7 @@ function fixRules(rules, bf_len) {
 
             // now find the correspoinding z_n
             let out = findGate(x_xor_y, "XOR", c_n, rules)
-            if (out == null) {
+            if (out === null) {
                 // no output gate found - x_xor_y and x_and_y must be swapped
                 swapped.push(...[x_and_y, x_xor_y])
                 swap(x_and_y, x_xor_y, rules)
@@ -178,7 +178,7 @@ function fixRules(rules, bf_len) {
                 continue
             }
 
-            if (out != z_n) {
+            if (out !== z_n) {
                 // wrong output gate found - out and z_n must be swapped
                 swapped.push(...[out, z_n])
                 swap(out, z_n, rules)
@@ -190,7 +190,7 @@ function fixRules(rules, bf_len) {
             // the next two are assumed to never be swapped, as
             // these are not direct outputs
             out = findGate(c_n, 'AND', x_xor_y, rules)
-            if (out == null) {
+            if (out === null) {
                 // no output gate found - c_n an x_xor_y must be swapped
                 // Did not happen with my data
                 swapped.push(...[c_n, x_xor_y])
@@ -201,7 +201,7 @@ function fixRules(rules, bf_len) {
                 continue
             }
             c_n = findGate(out, 'OR', x_and_y, rules)
-            if (c_n == null) {
+            if (c_n === null) {
                 // no output gate found - out an x_and_y must be swapped
                 // Did not happen with my data
                 swapped.push(...[out, x_and_y])
@@ -264,7 +264,7 @@ if (tasks.includes(2)) {
     let buf = ["   "]
     let diffIndices = []
     for (let i = 0; i <= bf_len; i++) {
-        if (z_s[i] != r_s[i]) {
+        if (z_s[i] !== r_s[i]) {
             buf.push("^")
             diffIndices.push(45-i)
         }

@@ -57,7 +57,7 @@ if (tasks.includes(1)) {
 
     let pos = 0
     for (const [idx, len] of diskmap.entries()) {
-        if (idx % 2 == 0) {
+        if (idx % 2 === 0) {
             const c = `${idx/2}`
             for (let j = 0; j < len; j++) {
                 disk[pos+j] = c
@@ -72,7 +72,7 @@ if (tasks.includes(1)) {
     let e = disklen-1
     while (true) {
         s = disk.indexOf('.', s)
-        while (disk[e] == '.') e -= 1
+        while (disk[e] === '.') e -= 1
         if (e <= s) {
             break
         }
@@ -98,7 +98,7 @@ class Block {
         this.len = len
         this.id = id
         this.next = null
-        this.prev == null
+        this.prev === null
     }
     append(b) {
         this.next = b
@@ -112,14 +112,14 @@ function compact(b) {
     // empty block that we can combined into b, eliminating
     // the other blocks from the list
     let p = b.prev
-    if (p != null && p.id == '.') {
+    if (p !== null && p.id === '.') {
         b.len += p.len
         b.prev = p.prev
         b.prev.next = b
         p = null   // memory can be free'd by GC
     }
     let n = b.next
-    if (n != null && n.id == '.') {
+    if (n !== null && n.id === '.') {
         b.len += n.len
         b.next = n.next
         b.next.prev = b
@@ -137,11 +137,11 @@ if (tasks.includes(2)) {
     let tail = null
     let curr = null
     for (let i = 0; i < line.length; i++) {
-        let b = new Block(parseInt(line[i]), (i%2 == 0 ? i/2 : '.'))
-        if (head == null) {
+        let b = new Block(parseInt(line[i]), (i%2 === 0 ? i/2 : '.'))
+        if (head === null) {
             head = b
         }
-        if (curr != null) {
+        if (curr !== null) {
             curr.append(b)
         }
         curr = b
@@ -154,14 +154,14 @@ if (tasks.includes(2)) {
     // check whether they can be moved
     let nextcand = tail.prev
 
-    while (nextcand != null) {
+    while (nextcand !== null) {
         
         // find a candidate going backwards
         let cand = nextcand
-        while (cand != null && cand.id == '.') {
+        while (cand !== null && cand.id === '.') {
             cand = cand.prev
         }            
-        if (cand == null || cand == head) {
+        if (cand === null || cand === head) {
             // we are done
             break  
         }
@@ -171,10 +171,10 @@ if (tasks.includes(2)) {
         
         // find a slot where cand would fit, starting from the beginning of the list until the candidate
         let slot = head
-        while (slot != cand && (slot.id != '.' || slot.len < cand.len)) {
+        while (slot !== cand && (slot.id !== '.' || slot.len < cand.len)) {
             slot = slot.next
         }
-        if (slot == cand) {
+        if (slot === cand) {
             // no matching slot found, continue with next candidate
             continue
         }
@@ -183,7 +183,7 @@ if (tasks.includes(2)) {
         // replace the candidate by an empty block first...
         let b = new Block(cand.len, '.')
         b.next = cand.next
-        if (b.next != null) {
+        if (b.next !== null) {
             b.next.prev = b
         }
         b.prev = cand.prev
@@ -197,7 +197,7 @@ if (tasks.includes(2)) {
         
         // ... and last reduce size of the slot, and maybe even delete it
         slot.len -= cand.len
-        if (slot.len == 0) {
+        if (slot.len === 0) {
             // remove slot
             let p = slot.prev
             p.next = slot.next
@@ -215,8 +215,8 @@ if (tasks.includes(2)) {
     let checksum = 0
     let pos = 0
     curr = head
-    while (curr != null) {
-        if (curr.id != '.' && curr.id != -1) {
+    while (curr !== null) {
+        if (curr.id !== '.' && curr.id !== -1) {
             for (let i = 0; i < curr.len; i++) {
                 checksum += (pos + i) * curr.id
             }

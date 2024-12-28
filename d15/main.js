@@ -61,7 +61,7 @@ let load = performance.now()
 function findRobot() {
     for (let y = 0; y < n; y++) {
         for (let x = 0; x < m; x++) {
-            if (grid[y][x] == '@')
+            if (grid[y][x] === '@')
                 return [x, y] 
         }
     }
@@ -81,7 +81,7 @@ function calcGpsSum(c = 'O') {
     let totals = 0
     for (let y = 1; y < n-1; y++) {
         for (let x = 1; x < m-1; x++) {
-            if (grid[y][x] == c) {
+            if (grid[y][x] === c) {
                 totals += 100 * y + x
             }
         }
@@ -96,16 +96,16 @@ function pushHorizontal(pos, dir) {
     let [x, y] = pos
     let i = x + dir
     // go left/right until either blocked or a free space reached
-    while (i >= 0 && i < m && grid[y][i] != '.' && grid[y][i] != '#') {
+    while (i >= 0 && i < m && grid[y][i] !== '.' && grid[y][i] !== '#') {
         i += dir;
     } 
     // if not blocked, move ahead (pushing boxes, if necessary)
-    if (grid[y][i] == '.') {
+    if (grid[y][i] === '.') {
         // move the robot
         grid[y][x] = '.'
         grid[y][x+dir] = '@'
         // if there were boxes, add one to the left/rightmost field
-        if (i != x+dir) grid[y][i] = 'O'
+        if (i !== x+dir) grid[y][i] = 'O'
         return [x+dir, y]
     }
     return pos
@@ -116,16 +116,16 @@ function pushVertical(pos, dir) {
     let [x, y] = pos
     let i = y + dir
     // go up/down until either blocked or a free space reached
-    while (i >= 0 && i < n && grid[i][x] != '.' && grid[i][x] != '#') {
+    while (i >= 0 && i < n && grid[i][x] !== '.' && grid[i][x] !== '#') {
         i += dir;
     } 
     // if not blocked, move ahead (pushing boxes, if necessary)
-    if (grid[i][x] == '.') {
+    if (grid[i][x] === '.') {
         // move the robot
         grid[y][x] = '.'
         grid[y+dir][x] = '@'
         // if there were boxes, add one to the top/bottom  field
-        if (i != y+dir) grid[i][x] = 'O'
+        if (i !== y+dir) grid[i][x] = 'O'
         return [x, y+dir]
     }
     return pos
@@ -141,7 +141,7 @@ if (tasks.includes(1)) {
     console.log(`Grid size is ${n}x${m}, robot is a pos [${rpos[0]},${rpos[1]}], we have ${rules.length} rules`)
 
     let pos = findRobot()
-    if (pos == null) {
+    if (pos === null) {
         console.log("ERROR - cannot find robot")
         exit(0)
     }
@@ -150,11 +150,11 @@ if (tasks.includes(1)) {
     for (const r of rules) {
         cnt++
         let npos = rpos
-        if (r == '^' || r == 'v') {
-            npos = pushVertical(npos, r == '^' ? -1 : 1)
+        if (r === '^' || r === 'v') {
+            npos = pushVertical(npos, r === '^' ? -1 : 1)
         }
-        else if (r == '>' || r == '<') {
-            npos = pushHorizontal(npos, r == '<' ? -1 : 1)
+        else if (r === '>' || r === '<') {
+            npos = pushHorizontal(npos, r === '<' ? -1 : 1)
         }
         else {
             console.log(`ERROR - unknown rule '${r}'`)
@@ -201,19 +201,19 @@ function listVerticalNeighs(x, y, dir) {
     // let [x, y] = pos
 
     // there is a '#' in direction of pushing -> return null
-    if (grid[y+dir][x] == '#' || (grid[y][x] != '@' && grid[y+dir][x+1] == '#')) {
+    if (grid[y+dir][x] === '#' || (grid[y][x] !== '@' && grid[y+dir][x+1] === '#')) {
         return null
     }
     // there is the right edge of a box in direction of pushing -> push its left edge 
-    if (grid[y+dir][x-1] == '[') {
+    if (grid[y+dir][x-1] === '[') {
         ret.push(x-1)
     }
     // there is the left edge of a box in direction of pushing -> push it 
-    if (grid[y+dir][x] == '[') {
+    if (grid[y+dir][x] === '[') {
         ret.push(x)
     }
     // x is in fact the left edge of a box, and the right edge has a left edge in direction of pushing -> push it
-    if (grid[y][x] != '@' && grid[y+dir][x+1] == '[') {
+    if (grid[y][x] !== '@' && grid[y+dir][x+1] === '[') {
         ret.push(x+1)
     }
 
@@ -229,7 +229,7 @@ function allVerticalNeighs(x_indices, y, dir) {
     let allNeighs = new Set()
     for (const x of x_indices) {
         let neighs = listVerticalNeighs(x, y, dir)
-        if (neighs == null) {
+        if (neighs === null) {
             // some box is blocked - whole row cannot be moved
             return null
         }
@@ -249,7 +249,7 @@ function pushVertical2(pos, dir) {
     let rows = [] // contains an array for each affected row with elements to be moved
 
     // going into direction, find affected boxes and add them to the rows array (for the index of the row)
-    while (neighs != null && neighs.length > 0 && i >= 0 && i < n) {
+    while (neighs !== null && neighs.length > 0 && i >= 0 && i < n) {
         i += dir
         rows[i] = neighs
         neighs = allVerticalNeighs(rows[i], i, dir)
@@ -257,9 +257,9 @@ function pushVertical2(pos, dir) {
     // of neighs is null, there was a blocker, so we cannot move
     // if it is not null, it is empty, but "rows" now contains 
     // entries of all boxes in that row that we can move to dir
-    if (neighs != null) {
+    if (neighs !== null) {
         // not blocked, process rows
-        while (i != y) {
+        while (i !== y) {
             for (const c of rows[i]) {
                 grid[i+dir][c] = '['; grid[i+dir][c+1] = ']'; 
                 grid[i][c] = '.'; grid[i][c+1] = '.';
@@ -280,13 +280,13 @@ function pushHorizontal2(pos, dir) {
     let i = x + dir
 
     // go left/right until either blocked or a free space reached
-    while (i >= 0 && i < m && grid[y][i] != '.' && grid[y][i] != '#') {
+    while (i >= 0 && i < m && grid[y][i] !== '.' && grid[y][i] !== '#') {
         i += dir;
     } 
     // if not blocked, move ahead (pushing boxes, if necessary)
-    if (grid[y][i] == '.') {
+    if (grid[y][i] === '.') {
         // need to move every single column as they all change
-        while (i != x) {
+        while (i !== x) {
             grid[y][i] = grid[y][i-dir]
             i -= dir
         }
@@ -311,11 +311,11 @@ if (tasks.includes(2)) {
     for (const r of rules) {
         cnt++
         let npos = rpos
-        if (r == '^' || r == 'v') {
-            npos = pushVertical2(npos, r == '^' ? -1 : 1)
+        if (r === '^' || r === 'v') {
+            npos = pushVertical2(npos, r === '^' ? -1 : 1)
         }
-        else if (r == '>' || r == '<') {
-            npos = pushHorizontal2(npos, r == '<' ? -1 : 1)
+        else if (r === '>' || r === '<') {
+            npos = pushHorizontal2(npos, r === '<' ? -1 : 1)
         }
         else {
             console.log(`ERROR - unknown rule '${r}'`)

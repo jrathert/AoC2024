@@ -67,7 +67,7 @@ let load = performance.now()
 function findPos(c= 'S') {
     for (let y = 1; y < n-1; y++) {
         for (let x = 1; x < m-1; x++) {
-            if (grid[y][x] == c)
+            if (grid[y][x] === c)
                 return [x, y] 
         }
     }
@@ -81,7 +81,7 @@ function calcSeats(doPrint = false) {
     if (keys.length > 0) {
         let k = keys[0]
         let seats = allSeats[k]
-        if (doPrint == true) {
+        if (doPrint === true) {
             for (let y = 0; y < n; y++) {
                 let line = []
                 for (let x = 0; x < m; x++) {
@@ -106,29 +106,29 @@ function calcSeats(doPrint = false) {
 function listSteps(x, y, dir, currCost) {
 
     // if we are at the finish, we do return null
-    if (grid[y][x] == 'E') return null
+    if (grid[y][x] === 'E') return null
 
     // I considered an optimization and only propose fields that have less or equal costs (see commented lines)
     // But this does not work: you might need to cross a path that was cheaper, but that you
     // meet at a later time with then the same price.
     let steps = []
-    if (dir == '^' || dir == 'v') {
-        let d = dir == '^' ? -1 : 1
-        // if (grid[y+d][x] != '#' && currCost +    1 <= visited[y+d][x]) steps.push([x, y+d, dir, 1])
-        // if (grid[y][x-1] != '#' && currCost + 1001 <= visited[y][x-1]) steps.push([x-1, y, '<', 1001])
-        // if (grid[y][x+1] != '#' && currCost + 1001 <= visited[y][x+1]) steps.push([x+1, y, '>', 1001])
-        if (grid[y+d][x] != '#') steps.push([x, y+d, dir, 1])
-        if (grid[y][x-1] != '#') steps.push([x-1, y, '<', 1001])
-        if (grid[y][x+1] != '#') steps.push([x+1, y, '>', 1001])
+    if (dir === '^' || dir === 'v') {
+        let d = dir === '^' ? -1 : 1
+        // if (grid[y+d][x] !== '#' && currCost +    1 <= visited[y+d][x]) steps.push([x, y+d, dir, 1])
+        // if (grid[y][x-1] !== '#' && currCost + 1001 <= visited[y][x-1]) steps.push([x-1, y, '<', 1001])
+        // if (grid[y][x+1] !== '#' && currCost + 1001 <= visited[y][x+1]) steps.push([x+1, y, '>', 1001])
+        if (grid[y+d][x] !== '#') steps.push([x, y+d, dir, 1])
+        if (grid[y][x-1] !== '#') steps.push([x-1, y, '<', 1001])
+        if (grid[y][x+1] !== '#') steps.push([x+1, y, '>', 1001])
     }
-    else if (dir == '>' || dir == '<') {
-        let d = dir == '<' ? -1 : 1
-        // if (grid[y][x+d] != '#' && currCost +    1 <= visited[y][x+d]) steps.push([x+d, y, dir, 1])    
-        // if (grid[y-1][x] != '#' && currCost + 1001 <= visited[y-1][x]) steps.push([x, y-1, '^', 1001])
-        // if (grid[y+1][x] != '#' && currCost + 1001 <= visited[y+1][x]) steps.push([x, y+1, 'v', 1001])    
-        if (grid[y][x+d] != '#') steps.push([x+d, y, dir, 1])    
-        if (grid[y-1][x] != '#') steps.push([x, y-1, '^', 1001])
-        if (grid[y+1][x] != '#') steps.push([x, y+1, 'v', 1001])    
+    else if (dir === '>' || dir === '<') {
+        let d = dir === '<' ? -1 : 1
+        // if (grid[y][x+d] !== '#' && currCost +    1 <= visited[y][x+d]) steps.push([x+d, y, dir, 1])    
+        // if (grid[y-1][x] !== '#' && currCost + 1001 <= visited[y-1][x]) steps.push([x, y-1, '^', 1001])
+        // if (grid[y+1][x] !== '#' && currCost + 1001 <= visited[y+1][x]) steps.push([x, y+1, 'v', 1001])    
+        if (grid[y][x+d] !== '#') steps.push([x+d, y, dir, 1])    
+        if (grid[y-1][x] !== '#') steps.push([x, y-1, '^', 1001])
+        if (grid[y+1][x] !== '#') steps.push([x, y+1, 'v', 1001])    
     }
     return steps
 }
@@ -142,7 +142,7 @@ function continuePath(x, y, dir, currCost, path) {
     
     // if we need to track all paths, we need to visit equally costly
     // fields - otherwise we can enforce lower cost fields
-    let maxAllowedCost = (path == null ? currCost + 1 : currCost) 
+    let maxAllowedCost = (path === null ? currCost + 1 : currCost) 
     if (visited[y][x] <  maxAllowedCost || currCost > minECost) {
         // it does not make sense to follow path, as 
         // - either we have been here with lower (or equal) costs or
@@ -155,33 +155,33 @@ function continuePath(x, y, dir, currCost, path) {
     visited[y][x] = currCost
 
     
-    if (path != null) {
+    if (path !== null) {
         path.push(`${x},${y}`)
     }
     
     // steps will be the possible steps from this field
-    //  - steps == null means: we reached the target 'E'
-    //  - steps == []: We are stuck, no further way possible
+    //  - steps === null means: we reached the target 'E'
+    //  - steps === []: We are stuck, no further way possible
     // Otherwise, steps contains a list of up to three possible
     // next steps
     let steps = listSteps(x, y, dir, currCost)
-    while (steps != null && steps.length == 1) {
+    while (steps !== null && steps.length === 1) {
         // as long as steps contains exactly one element, we can just go forward
         let [nx, ny, nd, c] = steps[0]
         x = nx; y = ny
         currCost += c
         visited[y][x] = currCost
-        if (path != null) {
+        if (path !== null) {
             path.push(`${x},${y}`)
         }
         steps = listSteps(x, y, nd, currCost)
     }
     // now either steps is null - we reached the target 'E'
     // or contains 0 (nothing to do) or 2 or 3 elements - that need to be followed
-    if (steps == null) { 
+    if (steps === null) { 
         // reached the target
         minECost = currCost < minECost ? currCost : minECost
-        if (path != null) {
+        if (path !== null) {
             // add the path to the set of keys that ended up here with same costs
             // console.log(`Adding path with cost ${c}) and ${path.length} elements`)
             let c = visited[y][x]
@@ -194,7 +194,7 @@ function continuePath(x, y, dir, currCost, path) {
         // either empty or at a crossing 
         for (const s of steps) {
             let [nx, ny, nd, c] = s
-            let p = (path == null) ? null : structuredClone(path)
+            let p = (path === null) ? null : structuredClone(path)
             // console.log(`New path ${x},${y} '${nd}' ${nx},${ny}, (c: ${currCost+c}, vc: ${visited[ny][nx]})`)
             continuePath(nx, ny, nd, currCost+c, p)
         }

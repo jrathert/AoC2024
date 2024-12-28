@@ -58,7 +58,7 @@ if (tasks.includes(1)) {
     let rules = []
     let idx = 0
 
-    while (lines[idx] != "") {
+    while (lines[idx] !== "") {
         let [x, y] = lines[idx].split("|").map(Number)
         let val = x * 100 + y
         rules.push(val)
@@ -105,7 +105,7 @@ if (tasks.includes(2)) {
     }
 
     let idx = 0
-    while (lines[idx] != "") {
+    while (lines[idx] !== "") {
         let [x, y] = lines[idx].split("|").map(Number)
         if (x in rules) {
             rules[x].push(y)
@@ -124,10 +124,10 @@ if (tasks.includes(2)) {
     for (const idx of erroneous) {
         let candidates = lines[idx].split(",").map(Number)
         let sorted = candidates.sort(function (a, b) { 
-            if (rules[b] != undefined && rules[b].includes(a)) {
+            if (rules[b] !== undefined && rules[b].includes(a)) {
                 return 1
             }
-            if (rules[a] != undefined && rules[a].includes(b)) {
+            if (rules[a] !== undefined && rules[a].includes(b)) {
                 return -1
             }
             console.log(`ERROR: No idea how to sort ${a} and ${b} - should not happen`)

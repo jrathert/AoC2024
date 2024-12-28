@@ -48,7 +48,7 @@ function is_safe(report) {
         let sign = report[1] - report[0]
         for (let i = 0; i < report.length-1; i++) {
             const diff = report[i+1] - report[i]
-            if (diff == 0 || diff * sign < 0 || Math.abs(diff) > 3) {
+            if (diff === 0 || diff * sign < 0 || Math.abs(diff) > 3) {
                 // either 0 or change of sign or diff too big => error
                 return { valid: false, errorIndex: i }
             }
@@ -93,13 +93,13 @@ if (tasks.includes(2)) {
         // check if the error can be fixed by
         //  - taking out the element at errIdx
         //  - taking out the element at errIdx + 1
-        //  - taking out the element 0 if errIdx == 1
+        //  - taking out the element 0 if errIdx === 1
         let vec = errVec.slice(0, errIdx).concat(errVec.slice(errIdx+1))
         let res = is_safe(vec)
         if (!res.valid) {
             vec = errVec.slice(0, errIdx+1).concat(errVec.slice(errIdx+2))
             res = is_safe(vec)
-            if (!res.valid && errIdx == 1) {
+            if (!res.valid && errIdx === 1) {
                 vec = errVec.slice(1)
                 res = is_safe(vec)
             }

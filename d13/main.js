@@ -72,7 +72,7 @@ function solve(taskno) {
         let [ a2, b2 ] = lines[quiz*4+1].match(re).slice(1, 3).map(Number)
         let [  x,  y ] = lines[quiz*4+2].match(re).slice(1, 3).map(Number)
 
-        if (taskno == 2) {
+        if (taskno === 2) {
             x += 10000000000000
             y += 10000000000000    
         }

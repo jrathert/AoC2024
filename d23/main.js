@@ -95,7 +95,7 @@ if (tasks.includes(1)) {
 
 let maxCliques = []
 function BronKerbosch1(R, P, X) {
-    if (P.size == 0 && X.size == 0) {
+    if (P.size === 0 && X.size === 0) {
         maxCliques.push(R)
     } else {
         for (const v of P) {
@@ -117,7 +117,7 @@ if (tasks.includes(2)) {
     let X = new Set()
     BronKerbosch1(R, P, X) 
 
-    if (maxCliques.length == 0) {
+    if (maxCliques.length === 0) {
         totals = -1
     }
     else {

@@ -88,7 +88,7 @@ function createVisitMap() {
 function findUnvisited(visitMap) {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
-            if (visitMap[i][j] == '.') {
+            if (visitMap[i][j] === '.') {
                 return [i, j]
             }
         }        
@@ -100,10 +100,10 @@ function cntBorders(pos) {
     const [x, y] = pos
     const c = lines[x][y]
     let ret = 0
-    if (x == 0 || lines[x-1][y] != c) ret++
-    if (x == n-1 || lines[x+1][y] != c) ret++
-    if (y == 0 || lines[x][y-1] != c) ret++
-    if (y == m-1 || lines[x][y+1] != c) ret++
+    if (x === 0 || lines[x-1][y] !== c) ret++
+    if (x === n-1 || lines[x+1][y] !== c) ret++
+    if (y === 0 || lines[x][y-1] !== c) ret++
+    if (y === m-1 || lines[x][y+1] !== c) ret++
     // console.log(`borders: ${x},${y} '${c}' -> ${ret}`)
     return ret
 }
@@ -119,19 +119,19 @@ function cntCorners(pos) {
     let r = getLineElem(x, y+1)
 
     // top-left 
-    if ((t != c && l != c) || (t == c && l == c && getLineElem(x-1, y-1) != c)) {
+    if ((t !== c && l !== c) || (t === c && l === c && getLineElem(x-1, y-1) !== c)) {
         ret++
     }
     // top-right
-    if ((t != c && r != c) || (t == c && r == c && getLineElem(x-1, y+1) != c)) {
+    if ((t !== c && r !== c) || (t === c && r === c && getLineElem(x-1, y+1) !== c)) {
         ret++
     }
     // bottom-left
-    if ((b != c && l != c) || (b == c && l == c && getLineElem(x+1, y-1) != c)) {
+    if ((b !== c && l !== c) || (b === c && l === c && getLineElem(x+1, y-1) !== c)) {
         ret++
     }
     // bottom-right
-    if ((b != c && r != c) || (b == c && r == c && getLineElem(x+1, y+1) != c)) {
+    if ((b !== c && r !== c) || (b === c && r === c && getLineElem(x+1, y+1) !== c)) {
         ret++
     }
     // console.log(`corners: ${x},${y} '${c}' -> ${ret}`)
@@ -161,7 +161,7 @@ function visit(visitMap, pos, c, k) {
     let [x, y] = pos
     let bc = 0  // border count
     let cc = 0  // corner count
-    if (!(oob(x, y)) && lines[x][y] == c && visitMap[x][y] == '.') {
+    if (!(oob(x, y)) && lines[x][y] === c && visitMap[x][y] === '.') {
         visitMap[x][y] = c    
         counter.addOne(k)
         bc = cntBorders([x, y])
@@ -182,7 +182,7 @@ if (tasks.includes(1) || tasks.includes(2)) {
 
     while (true) {
         let [x, y] = findUnvisited(visitMap)
-        if (x == -1) {
+        if (x === -1) {
             break
         }
         const c = lines[x][y]

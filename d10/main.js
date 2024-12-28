@@ -42,7 +42,7 @@ console.log(`Size: ${n}x${m}`)
 // prepare a number grid from the lines, as we need to compare them often and calculate
 let grid = []
 for (const l of lines) {
-    grid.push(l.split('').map( (x) => { if (x != '.') return parseInt(x); else return -1; } ))
+    grid.push(l.split('').map( (x) => { if (x !== '.') return parseInt(x); else return -1; } ))
 } 
 
 let load = performance.now()
@@ -53,10 +53,10 @@ let load = performance.now()
 function neighbors(i, j) {
     let v = grid[i][j]
     let ret = []
-    if (i > 0    && grid[i-1][j] == v+1) { ret.push([i-1, j]) }
-    if (i < n-1  && grid[i+1][j] == v+1) { ret.push([i+1, j]) }
-    if (j > 0    && grid[i][j-1] == v+1) { ret.push([i, j-1]) }
-    if (j < m-1  && grid[i][j+1] == v+1) { ret.push([i, j+1]) }
+    if (i > 0    && grid[i-1][j] === v+1) { ret.push([i-1, j]) }
+    if (i < n-1  && grid[i+1][j] === v+1) { ret.push([i+1, j]) }
+    if (j > 0    && grid[i][j-1] === v+1) { ret.push([i, j-1]) }
+    if (j < m-1  && grid[i][j+1] === v+1) { ret.push([i, j+1]) }
     return ret
 }
 
@@ -72,7 +72,7 @@ function solve(task) {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
 
-            if (grid[i][j] == 0) {
+            if (grid[i][j] === 0) {
 
                 let to_visit = [{ p: [i, j], s: new Set() }]
 
@@ -83,12 +83,12 @@ function solve(task) {
                         let s = `${p[0]},${p[1]}`
                         if (!visited.has(s)) {
                             visited.add(s)
-                            if (grid[p[0]][p[1]] == 9) {
+                            if (grid[p[0]][p[1]] === 9) {
                                 num_trails += 1          
                             } 
                             else {
                                 // this is the only line where the two parts differ
-                                to_visit.push({ p: p, s: (task == 1 ? visited : new Set(visited)) })
+                                to_visit.push({ p: p, s: (task === 1 ? visited : new Set(visited)) })
                             } 
                         }  
                     }
